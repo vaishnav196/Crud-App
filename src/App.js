@@ -11,11 +11,12 @@ function App() {
   }
   return (
     <div className="App">
-     <div className="container">
+     <div className="container ">
      <button className="btn btn-primary mt-5 ms-auto" onClick={()=>setaddsec(true)}>+Add</button>
+      <h1 className='text-center'>Crud Operation Form</h1>
      {addsec && (
        <div className=" d-block  m-auto  mt-3 w-75">
-       <div className="row w-75 px-2 py-3 bg-pink d-block m-auto  mt-5">
+       <div className="row w-50 px-2 py-3 bg-pink d-block m-auto  mt-5">
  
        
        <form onSubmit={handlesubmit}>
