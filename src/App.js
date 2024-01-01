@@ -8,11 +8,22 @@ axios.defaults.baseURL = "http://localhost:8080/";
 
 function App() {
   const [addsec, setaddsec] = useState(false);
+
+  const [editsec, seteditsec] = useState([]);
   const [datalist, setdatalist] = useState([]);
+  // this is form adding form
   const [formdata, setformdata] = useState({
     name: "",
     email: "",
     mobile: "",
+  });
+
+// this is form update form
+  const [formdataedit, setformdataedit] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+    _id:""
   });
 
   const handleonchange = (e) => {
@@ -34,17 +45,36 @@ function App() {
     }
   };
 
+
+
   const handledelete = async (id) => {
     const data = await axios.delete(`/delete/${id}`);
     alert(data.data.message);
     getfetchdata();
   };
 
-  const handleupdate = async (id) => {
-    const data = await axios.put(`/delete/${id}`);
-    alert(data.data.message);
-    getfetchdata();
+
+    // update data handle
+  const handleupdate = async (e) => {
+ e.preventDefault()
+ const data = await axios.put("/update",formdataedit);
+if(data.data.success){
+  getfetchdata()
+  alert(data.data.message)
+  seteditsec(false)
+}
   };
+ const handleedit=(item)=>{
+setformdataedit(item)
+seteditsec(true)
+ }
+
+  const handleEditonchange= async(e)=>{
+    const { value, name } = e.target;
+    setformdataedit((prev) => {
+      return { ...prev, [name]: value };
+    });
+  }
 
   const getfetchdata = async () => {
     const data = await axios.get("/userdetails");
@@ -65,68 +95,14 @@ function App() {
           +Add
         </button>
         <h1 className="text-center">Crud Operation Form</h1>
-        {addsec && (<FormTable handlesubmit={handlesubmit} handleonchange={handleonchange}handleclose={()=> setaddsec(false)}/>
-          // <div className=" d-block  m-auto w-75">
-          //   <div className="row w-75 px-2 py-3 bg-pink d-block m-auto  mt-5">
-          //     <form onSubmit={handlesubmit}>
-          //       <button
-          //         className="btn btn-outline-dark d-block  ms-auto"
-          //         onClick={() => {
-          //           setaddsec(false);
-          //         }}
-          //       >
-          //         X
-          //       </button>
-          //       <div class="form-group  ">
-          //         <label htmlFor="name">Name:</label>
-          //         <input
-          //           type="text"
-          //           className="form-control"
-          //           id="name"
-          //           placeholder="Enter your name"
-          //           name="name"
-          //           onChange={handleonchange}
-          //         />
-          //       </div>
-          //       <div class="form-group">
-          //         <label htmlFor="email">Email:</label>
-          //         <input
-          //           type="email"
-          //           className="form-control"
-          //           id="email"
-          //           placeholder="Enter your email"
-          //           name="email"
-          //           onChange={handleonchange}
-          //         />
-          //       </div>
-          //       <div class="form-group">
-          //         <label htmlFor="mobile " className="mt-2">
-          //           Mobile Number:
-          //         </label>
-          //         <input
-          //           type="tel"
-          //           className="form-control mt-1"
-          //           id="mobile"
-          //           name="mobile"
-          //           placeholder="Enter your mobile number"
-          //           onChange={handleonchange}
-          //         />
-          //       </div>
-
-          //       <button
-          //         type="submit"
-          //         className="btn btn-primary mt-4"
-          //         onClick={handlesubmit}
-          //       >
-          //         Submit
-          //       </button>
-          //       <button type="button" className="btn btn-success  mt-4 ms-2">
-          //         Update
-          //       </button>
-          //     </form>
-          //   </div>
-          // </div>
+        {addsec && (<FormTable handlesubmit={handlesubmit} handleonchange={handleonchange}handleclose={()=> setaddsec(false) } rest={formdata}/>
+         
         )}
+        {
+          editsec &&(<FormTable handlesubmit={handleupdate} handleonchange={handleEditonchange}handleclose={()=> seteditsec(false)} rest={formdataedit}/>
+
+          )
+        }
 
         <table className="table table-striped table-light  ">
           <thead>
@@ -145,7 +121,7 @@ function App() {
                   <td>{item.email}</td>
                   <td>{item.mobile}</td>
                   <td>
-                    <button className="btn btn-primary mx-2">edit</button>
+                    <button className="btn btn-primary mx-2" onClick={()=>handleedit(item)}>edit</button>
                     <button
                       className="btn btn-danger"
                       onClick={() => handledelete(item._id)}

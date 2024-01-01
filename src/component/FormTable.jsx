@@ -1,7 +1,7 @@
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
-export default function FormTable({handlesubmit,handleonchange,handleclose}) {
+export default function FormTable({handlesubmit,handleonchange,handleclose,rest}) {
   return (
     <div>
        <div className=" d-block  m-auto w-75">
@@ -21,7 +21,7 @@ export default function FormTable({handlesubmit,handleonchange,handleclose}) {
                     id="name"
                     placeholder="Enter your name"
                     name="name"
-                    onChange={handleonchange}
+                    onChange={handleonchange} value={rest.name}
                   />
                 </div>
                 <div class="form-group">
@@ -32,7 +32,7 @@ export default function FormTable({handlesubmit,handleonchange,handleclose}) {
                     id="email"
                     placeholder="Enter your email"
                     name="email"
-                    onChange={handleonchange}
+                    onChange={handleonchange} value={rest.email}
                   />
                 </div>
                 <div class="form-group">
@@ -45,7 +45,7 @@ export default function FormTable({handlesubmit,handleonchange,handleclose}) {
                     id="mobile"
                     name="mobile"
                     placeholder="Enter your mobile number"
-                    onChange={handleonchange}
+                    onChange={handleonchange} value={rest.mobile}
                   />
                 </div>
 
@@ -56,9 +56,7 @@ export default function FormTable({handlesubmit,handleonchange,handleclose}) {
                 >
                   Submit
                 </button>
-                <button type="button" className="btn btn-success  mt-4 ms-2">
-                  Update
-                </button>
+                
               </form>
             </div>
           </div>
