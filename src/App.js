@@ -3,24 +3,26 @@ import './App.css';
 import React,{useState} from'react'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.min.js"
+import axios from " axios"
 function App() {
   const[addsec,setaddsec]=useState(false)
   const [formdata,setformdata]=useState({
     name:"",
     email:"",
-    mobile      
+    mobile:""     
   })
 
   const handleonchange=(e)=>{
     const{value,name}=e.target
     setformdata((preve)=>{
       return {...preve ,[name]:value}
-      console.log(formdata)
+      
     })
   }
 
   const handlesubmit=(e)=>{
-    e.preventdefault()
+    e.preventDefault()
+    console.log(formdata)
   }
   return (
     <div className="App">
@@ -29,7 +31,7 @@ function App() {
       <h1 className='text-center'>Crud Operation Form</h1>
      {addsec && (
        <div className=" d-block  m-auto  mt-3 w-75">
-       <div className="row w-50 px-2 py-3 bg-pink d-block m-auto  mt-5">
+       <div className="row w-75 px-2 py-3 bg-pink d-block m-auto  mt-5">
  
        
        <form onSubmit={handlesubmit}>
@@ -47,7 +49,7 @@ function App() {
              <input type="tel" class="form-control mt-1" id="mobile" name="mobile" placeholder="Enter your mobile number" onChange={handleonchange}/>
          </div>
  
-         <button type="submit" class="btn btn-primary mt-4">Submit</button>
+         <button type="submit" class="btn btn-primary mt-4" onClick={handlesubmit}>Submit</button>
          <button type="button" class="btn btn-success  mt-4 ms-2">Update</button>
      </form>
       </div>
