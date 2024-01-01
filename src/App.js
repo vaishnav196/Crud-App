@@ -3,7 +3,7 @@ import './App.css';
 import React,{useState} from'react'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.min.js"
-import axios from " axios"
+import axios from 'axios';
 function App() {
   const[addsec,setaddsec]=useState(false)
   const [formdata,setformdata]=useState({
@@ -12,8 +12,10 @@ function App() {
     mobile:""     
   })
 
-  const handleonchange=(e)=>{
+  const handleonchange= async (e)=>{
     const{value,name}=e.target
+    const data= await axios.post("/create",formdata)
+    console.log(data)
     setformdata((preve)=>{
       return {...preve ,[name]:value}
       
