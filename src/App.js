@@ -5,6 +5,19 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.min.js"
 function App() {
   const[addsec,setaddsec]=useState(false)
+  const [formdata,setformdata]=useState({
+    name:"",
+    email:"",
+    mobile      
+  })
+
+  const handleonchange=(e)=>{
+    const{value,name}=e.target
+    setformdata((preve)=>{
+      return {...preve ,[name]:value}
+      console.log(formdata)
+    })
+  }
 
   const handlesubmit=(e)=>{
     e.preventdefault()
@@ -23,15 +36,15 @@ function App() {
       <button className='btn btn-outline-dark d-block  ms-auto'onClick={()=>{setaddsec(false)}}>X</button>
          <div class="form-group  ">
              <label Htmlfor="name">Name:</label>
-             <input type="text" class="form-control" id="name" placeholder="Enter your name"/>
+             <input type="text" class="form-control" id="name" placeholder="Enter your name" name="name" onChange={handleonchange}/>
          </div>
          <div class="form-group">
              <label Htmlfor="email">Email:</label>
-             <input type="email" class="form-control" id="email" placeholder="Enter your email"/>
+             <input type="email" class="form-control" id="email" placeholder="Enter your email" name="email" onChange={handleonchange}/>
          </div>
          <div class="form-group">
              <label Htmlfor="mobile " className='mt-2'>Mobile Number:</label>
-             <input type="tel" class="form-control mt-1" id="mobile" placeholder="Enter your mobile number"/>
+             <input type="tel" class="form-control mt-1" id="mobile" name="mobile" placeholder="Enter your mobile number" onChange={handleonchange}/>
          </div>
  
          <button type="submit" class="btn btn-primary mt-4">Submit</button>
