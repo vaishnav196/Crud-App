@@ -24,30 +24,29 @@ function App() {
   const handlesubmit = async (e) => {
     e.preventDefault();
     const data = await axios.post("/create", formdata);
-    //  console.log(data)
+    
     getfetchdata()
     if (data.data.success) {
-      // setdatalist(data.data.data);
+      
       setaddsec(false);
       alert(data.data.message);
       console.log(data.data.data)
-      //  getfetchdata()
+    
     }
   };
 
-  // console.log(datalist)
+ 
   const getfetchdata = async () => {
     const data = await axios.get("/userdetails");
     setdatalist(data.data.data);
-    //alert(data.data.message)
-    // console.log(setdatalist);
+   
   };
 
   useEffect(() => {
     getfetchdata();
   }, []);
 
-  // console.log(datalist)
+
 
   return (
     <div className="App">
