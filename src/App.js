@@ -132,7 +132,7 @@ seteditsec(true)
                 </tr>
               );
             }))
-            :(<h4 className="text-center ">No data to show</h4>)
+            :(<h4 className=" ">No data to show</h4>)
           
           
           }
