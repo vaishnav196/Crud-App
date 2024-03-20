@@ -9,6 +9,7 @@ axios.defaults.baseURL = "http://localhost:8080/";
 function App() {
   const [addsec, setaddsec] = useState(false);
 
+
   const [editsec, seteditsec] = useState([]);
   const [datalist, setdatalist] = useState([]);
   // this is form adding form
